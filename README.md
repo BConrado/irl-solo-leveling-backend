@@ -1,8 +1,13 @@
 # IRL Solo Leveling Motivation Game APP - Backend
 
-## Description
+Backend Services to IRL Solo Leveling, a real life RPG like motivation application.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A real life RPG like status tracker. 
+
+## Motivation
+
+Help me and other games/animes/etc enjoyers to get motivated in real life and go make
+exercises and other activities to help improve our health. (Reading, Studying, etc...).
 
 ## Installation
 
