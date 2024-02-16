@@ -2,51 +2,113 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+ provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgres"
-  url      = env("DATABASE_URL")
+ provider = "postgres"
+ url      = env("DATABASE_URL")
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  name  String
-  level Int
-  stats Attributes?
-  class Class
+ id    Int         @id @default(autoincrement())
+ name  String
+ level Int
+ stats Attributes?
+ class Class
 }
 
 model Attributes {
-  id                             Int     @default(autoincrement()) @id
+ healthPoints Int
+ manaPoints   Int
 
-  healthPoints                   Int
-  manaPoints                     Int
+ fatigue      Int
+ strength     Int
+ stamina      Int
+ agility      Int
+ intelligence Int
+ perception   Int
 
-  fatigue                        Int
-  strength                       Int
-  stamina                        Int
-  agility                        Int
-  intelligence                   Int
-  perception                     Int
-  
-  availablePoints                Int
+ availablePoints Int
 
-  PhysicalDmgReductionPorcentage Int
-  MagicalDmgReductionPorcentage  Int
+ PhysicalDmgReductionPorcentage Int
+ MagicalDmgReductionPorcentage  Int
 
-  user                           User     @relation(fields: [usedId], references: [id])
-  usedId                         Int      @unique
+ user   User @relation(fields: [usedId], references: [id])
+ usedId Int  @unique
 }
 
 enum Class {
-ASSASSIN
-MAGE
-FIGHTER
-RANGER
-HEALER
-TANKER
-SHADOW_MONARCH
+ ASSASSIN
+ MAGE
+ FIGHTER
+ RANGER
+ HEALER
+ TANKER
+ SHADOW_MONARCH
 }
 
+model Quest {
+ id          Int    @id @default(autoincrement())
+ title       String
+ description String
+ objective   String
+
+ acceptedTime   DateTime
+ expirationTime DateTime?
+
+ reward   Reward[]
+ penality Penality?
+}
+
+model Reward {
+ id            Int    @id @default(autoincrement())
+ title         String
+ upgradePoints Int?
+
+ item   Item @relation(fields: [itemId], references: [id])
+ itemId Int  @unique
+
+ quest   Quest? @relation(fields: [questId], references: [id])
+ questId Int?   @unique
+
+ ownEvent OwnEvent?
+}
+
+model Penality {
+ title         String
+ degradePoints Int?   @default(0)
+
+ quest   Quest @relation(fields: [questId], references: [id])
+ questId Int   @unique
+}
+
+model OwnEvent {
+ id          Int     @id @default(autoincrement())
+ title       String
+ description String?
+ reward      Reward  @relation(fields: [rewardId], references: [id])
+ rewardId    Int     @unique
+}
+
+model Item {
+ id          Int          @id @default(autoincrement())
+ title       String
+ description String
+ bonusStatus ItemStatus[]
+ Reward      Reward[]
+}
+
+model ItemStatus {
+ Item   Item @relation(fields: [itemId], references: [id])
+ itemId Int  @unique
+
+ healthPointsBonus Int?
+ manaPointsBonus   Int?
+ fatigueBonus      Int?
+ strengthBonus     Int?
+ staminaBonus      Int?
+ agilityBonus      Int?
+ intelligenceBonus Int?
+ perceptionBonus   Int?
+}
