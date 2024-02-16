@@ -3,5 +3,9 @@
   "trailingComma": "all",
   "useTabs": true,
   "tabWidth": 1,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "bracketSameLine": true,
+  "lineWidth": 120,
+  "columnWidth": 120,
+  "printWidth": 120
 }
