@@ -6,12 +6,47 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgres"
   url      = env("DATABASE_URL")
 }
 
 model User {
   id    Int     @default(autoincrement()) @id
-  name  String?
+  name  String
   level Int
+  stats Attributes?
+  class Class
 }
+
+model Attributes {
+  id                             Int     @default(autoincrement()) @id
+
+  healthPoints                   Int
+  manaPoints                     Int
+
+  fatigue                        Int
+  strength                       Int
+  stamina                        Int
+  agility                        Int
+  intelligence                   Int
+  perception                     Int
+  
+  availablePoints                Int
+
+  PhysicalDmgReductionPorcentage Int
+  MagicalDmgReductionPorcentage  Int
+
+  user                           User     @relation(fields: [usedId], references: [id])
+  usedId                         Int      @unique
+}
+
+enum Class {
+ASSASSIN
+MAGE
+FIGHTER
+RANGER
+HEALER
+TANKER
+SHADOW_MONARCH
+}
+
