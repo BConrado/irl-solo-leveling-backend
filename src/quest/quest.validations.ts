@@ -4,10 +4,10 @@ import { ExpirationDateInPastError } from "./quest.error";
 export class QuestValidations {
 
   static async isExpirationDateInPast( { expirationTime } : Prisma.QuestCreateInput ): Promise<void> {
-    console.log("expirationTime " + expirationTime);
-    console.log(Date.now() + " Date now");
-    // if (expirationTime?.toLocaleString()){
-    //   throw new ExpirationDateInPastError();
-    // }
+    const dateNow = new Date().toISOString();
+
+    if (!!expirationTime && expirationTime < dateNow){
+      throw new ExpirationDateInPastError();
+    }
   }
 }

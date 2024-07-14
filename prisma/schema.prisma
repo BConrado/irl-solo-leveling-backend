@@ -66,8 +66,8 @@ model Reward {
  title         String
  upgradePoints Int?
 
- item   Item @relation(fields: [itemId], references: [id])
- itemId Int  @unique
+ item   Item? @relation(fields: [itemId], references: [id])
+ itemId Int?  @unique
 
  quest   Quest? @relation(fields: [questId], references: [id])
  questId Int?   @unique
