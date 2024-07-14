@@ -11,11 +11,12 @@ datasource db {
 }
 
 model User {
- id    Int         @id @default(autoincrement())
- name  String
- level Int
- stats Attributes?
- class Class
+ id          Int         @id @default(autoincrement())
+ name        String
+ level       Int
+ stats       Attributes?
+ class       Class
+ pointsToUse Int?
 }
 
 model Attributes {
@@ -92,11 +93,11 @@ model OwnEvent {
 }
 
 model Item {
- id          Int          @id @default(autoincrement())
- title       String
- description String
- bonusStatus ItemStatus[]
- Reward      Reward[]
+ id               Int          @id @default(autoincrement())
+ title            String
+ description      String
+ bonusStatus      ItemStatus[]
+ reward           Reward[]
 }
 
 model ItemStatus {

@@ -32,9 +32,7 @@ export class AppController {
 	@Post('quest')
 	async createQuest(@Body() questData: Prisma.QuestCreateInput): Promise<QuestModel> {
 		await QuestDeterminations.clearAcceptedTime(questData);
-		console.log(JSON.stringify(questData));
 		await QuestValidations.isExpirationDateInPast(questData);
-		questData.acceptedTime = new Date();
 		return this.questService.createQuest(questData);
 	}
 }
